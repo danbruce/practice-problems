@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <gmp.h>
+#include <math.h>
 
 char *uniquePaths(unsigned int m, unsigned int n)
 {
@@ -8,10 +9,13 @@ char *uniquePaths(unsigned int m, unsigned int n)
         return "0";
     else if (m == 1 || n == 1)
         return "1";
-    mpz_t grid[2][n];
+
+    int minInt = m <= n ? m : n;
+    int maxInt = m >= n ? m : n;
+    mpz_t grid[2][minInt];
     unsigned short i, j;
     unsigned long one = 1;
-    for (j = 0; j < n; j++)
+    for (j = 0; j < minInt; j++)
     {
         // initialize the first row to 1
         mpz_init_set_ui(grid[0][j], one);
@@ -21,14 +25,14 @@ char *uniquePaths(unsigned int m, unsigned int n)
     // set the left-most column on the second row to 1
     mpz_set_ui(grid[1][0], one);
 
-    for (i = 1; i < m; i++)
+    for (i = 1; i < maxInt; i++)
     {
-        for (j = 1; j < n; j++)
+        for (j = 1; j < minInt; j++)
         {
             mpz_add(grid[i % 2][j], grid[(i - 1) % 2][j], grid[i % 2][j - 1]);
         }
     }
-    char *s = mpz_get_str(NULL, 10, grid[(m - 1) % 2][n - 1]);
+    char *s = mpz_get_str(NULL, 10, grid[(maxInt - 1) % 2][minInt - 1]);
     return s;
 }
 
