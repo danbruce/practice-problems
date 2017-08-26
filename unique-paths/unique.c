@@ -3,12 +3,20 @@
 #include <gmp.h>
 #include <math.h>
 
-char *uniquePaths(unsigned int m, unsigned int n)
+void uniquePaths(unsigned int m, unsigned int n)
 {
     if (m <= 0 || n <= 0)
-        return "0";
+    {
+        // base case for m/n as zero
+        puts("0");
+        return;
+    }
     else if (m == 1 || n == 1)
-        return "1";
+    {
+        // base case for m/n as one
+        puts("1");
+        return;
+    }
 
     int minInt = m <= n ? m : n;
     int maxInt = m >= n ? m : n;
@@ -29,11 +37,13 @@ char *uniquePaths(unsigned int m, unsigned int n)
     {
         for (j = 1; j < minInt; j++)
         {
+            // for each element, add the adjacent left and above/below elements
             mpz_add(grid[i % 2][j], grid[(i - 1) % 2][j], grid[i % 2][j - 1]);
         }
     }
-    char *s = mpz_get_str(NULL, 10, grid[(maxInt - 1) % 2][minInt - 1]);
-    return s;
+    char *result = mpz_get_str(NULL, 10, grid[(maxInt - 1) % 2][minInt - 1]);
+    puts(result);
+    free(result);
 }
 
 int main(int argc, char **argv)
@@ -46,8 +56,6 @@ int main(int argc, char **argv)
     unsigned int m, n;
     sscanf(argv[1], "%u", &m);
     sscanf(argv[2], "%u", &n);
-    char *result = uniquePaths(m, n);
-    printf("%s\n", result);
-    free(result);
+    uniquePaths(m, n);
     return 0;
 }
