@@ -19,7 +19,7 @@ int uniquePathsWithObstacles(int **obstacleGrid, int obstacleGridRowSize, int ob
             else if (i == 0)
             {
                 // first row
-                grid[0][j] = (j == 0) ? (1 - obstacleGrid[0][0]) : grid[0][j - 1];
+                grid[0][j] = (j == 0) ? 1 : grid[0][j - 1];
             }
             else if (j == 0)
             {
