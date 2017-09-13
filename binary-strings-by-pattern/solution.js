@@ -17,7 +17,7 @@ const binaryStringsViaPattern = (binaryString) => {
   const parts = binaryString.split('?');
   // the size of the returned array will be 2^N where N is the # of ?'s in the input
   const max = 1 << (parts.length - 1);
-  // we iterate over every integer from 0 to 2^(N-1)
+  // we iterate over every integer from 0 to 2^N-1
   for (let i = 0; i < max; i++) {
     // and build a string that matches the pattern by combining the subparts
     // between the ?'s
