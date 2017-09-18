@@ -5,7 +5,7 @@ const longestPalindrome = (s) => {
   // indicates the start and end of the longest palindrome
   let start = 0;
   let end = 0;
-  for (let i = 0; i < s.length - 1; i++) {
+  for (let i = 0; i < s.length; i++) {
     let left = i - 1; // initialize the left walker just to the left of i
     let right = i + 1; // initialize the right walker just to the right of i
     // walk the right walker to the end of the repeated sequence of characters
